@@ -1,4 +1,4 @@
-FROM python:3.14.8-alpine3.24 AS build
+FROM python:3.14.8-slim-bookworm AS build
 
 RUN python3.14 -m venv /home/user/venv
 
