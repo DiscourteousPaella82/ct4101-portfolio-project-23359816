@@ -1,0 +1,10 @@
+*.venv
+*.venvs
+*venv
+
+*output
+
+*.gitignore
+*.git
+
+*README.md
