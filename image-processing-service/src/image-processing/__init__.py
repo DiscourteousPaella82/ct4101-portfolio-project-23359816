@@ -1,26 +1,12 @@
-import cv2 as cv
-import numpy as np
-import os
-from matplotlib import pyplot as plt
+import setup_helper as sh
+import image_reader as ir
 
-img_path = os.getenv("IMAGES_PATH")
-assert img_path is not None, "IMAGES_PATH could not be read, make sure to set IMAGES_PATH environment variable"
+bike_img_path, mb_img_path = sh.get_image_path()
 
-bike_img_path = img_path + "/bike"
-mb_img_path = img_path + "/motorbike"
+ttl_img_count = sh.get_total_image_count()
 
-bike_imgs = cv.imreadmulti(bike_img_path)
-mb_imgs = cv.imreadmulti(mb_img_path)
+img = []
+print("Attempting to read bike images from path: " + bike_img_path + " & motorbikes from path: " + mb_img_path)
+img, read_image_count = ir.read_images(bike_pathname=bike_img_path, mb_pathname=mb_img_path, count=ttl_img_count)
 
-plt.figure(figsize=(10,8))
-plt.subplot(8, 4)
-
-for i in range(8):
-    plt.imshow(bike_imgs[i])
-    plt.xticks([]), plt.yticks([])
-
-for i in range(8):
-    plt.imshow(mb_imgs[i])
-    plt.xticks([]), plt.yticks([])
-
-plt.show()
+print("Read " + str(img[0]) + " bike images & " + str(img[1]) + " motorbike images")

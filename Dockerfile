@@ -1,5 +1,5 @@
 # Building image processing service
-FROM python:3.14.8-slim-bookworm AS build
+FROM python:3.14.8-slim-bookworm AS image-processor-builder
 
 RUN python3.14 -m venv /home/user/venv
 
@@ -21,15 +21,16 @@ WORKDIR /home/user/assets
 COPY ./assets .
 
 # Image processing
-FROM build AS image-process
+FROM image-processor-builder AS image-processor-runner 
 
 ENV PATH="/home/myuser/venv/bin:$PATH"
-
-ENV IMAGES_PATH="/home/user/assets"
 
 WORKDIR /home/user/app/image-processing-service/src/image-processing
 
 ENV PYTHONUNBUFFERED=1
 ENV VIRTUAL_ENV=/home/user/venv
+
+ENV IMAGES_PATH="/home/user/assets"
+ENV TOTAL_IMAGE_COUNT=$TOTAL_IMAGE_COUNT
 
 RUN [ "python3", "__init__.py" ]
