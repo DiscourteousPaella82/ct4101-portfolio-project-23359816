@@ -1,0 +1,1 @@
+Place your bike/motorbike images here in their respective directory
