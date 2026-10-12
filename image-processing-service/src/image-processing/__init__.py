@@ -1,3 +1,22 @@
+import getopt, sys
+
+args = sys.argv[1:]
+options = "vo:"
+long_options = ["Verbose", "Output="]
+
+verbose = False
+output = "."
+
+try:
+    arguments, values = getopt.getopt(args, options, long_options)
+    for currentArg, currentVal in arguments:
+        if currentArg in ("-v", "--Verbose"):
+            verbose = True
+        elif currentArg in ("-o", "--Output"):
+            print("Output directory:", currentVal)
+except getopt.error as err:
+    print(str(err))
+
 import setup_helper as sh
 import image_reader as ir
 import image_processor as ip
@@ -9,10 +28,11 @@ ttl_img_count = sh.get_total_image_count()
 
 img = []
 
-print("Attempting to read bike images from path: " + bike_img_path + " & motorbikes from path: " + mb_img_path)
+if verbose: print("Attempting to read bike images from path: " + bike_img_path + " & motorbikes from path: " + mb_img_path)
+
 imgs, read_image_count = ir.read_images(bike_pathname=bike_img_path, mb_pathname=mb_img_path, img_count=ttl_img_count)
 
-print("Read " + str(read_image_count) + " total images.\nRead "+ str(len(imgs[0])) + " bike images.\nRead " + str(len(imgs[1])) + " motorbike images.")
+if verbose: print("Read " + str(read_image_count) + " total images.\nRead "+ str(len(imgs[0])) + " bike images.\nRead " + str(len(imgs[1])) + " motorbike images.")
 
 normalized_images = ip.normalize_images(imgs)
 
