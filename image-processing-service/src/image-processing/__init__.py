@@ -1,16 +1,19 @@
 import getopt, sys
 
 args = sys.argv[1:]
-options = "vo:"
-long_options = ["Verbose", "Output="]
+options = "vpo:"
+long_options = ["Verbose", "Plot", "Output="]
 
 verbose = False
+plot = False
 output = "."
 
 try:
     arguments, values = getopt.getopt(args, options, long_options)
     for currentArg, currentVal in arguments:
         if currentArg in ("-v", "--Verbose"):
+            verbose = True
+        elif currentArg in ("-p", "--Plot"):
             verbose = True
         elif currentArg in ("-o", "--Output"):
             print("Output directory:", currentVal)
@@ -36,12 +39,12 @@ if verbose: print("Read " + str(read_image_count) + " total images.\nRead "+ str
 
 normalized_images = ip.normalize_images(imgs)
 
-iv.view_images(normalized_images, "Normalized images")
+if plot: iv.view_images(normalized_images, "Normalized images")
 
 thresholded_images = ip.threshold_images(normalized_images)
 
-iv.view_images(thresholded_images, "Thresholded images")
+if plot: iv.view_images(thresholded_images, "Thresholded images")
 
 resized_images = ip.resize_images(thresholded_images)
 
-iv.view_images(resized_images, "Resized images")
+if plot: iv.view_images(resized_images, "Resized images")
