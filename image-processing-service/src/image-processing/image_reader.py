@@ -22,7 +22,6 @@ def read_images_dir(pathname, count, imread_flag):
                         filename = pathname + "/" + file
 
                         image = cv.imread(filename, imread_flag)
-                       
                         images.append(image)
                     except:
                         count_read_failed += 1
@@ -64,7 +63,6 @@ def read_images(bike_pathname, mb_pathname, img_count, imread_flag=cv.IMREAD_GRA
         mb_imgs = read_images_dir(pathname=mb_pathname, count=(img_count/2), imread_flag=imread_flag)
 
     ttl_read_img_count = len(bike_imgs) + len(mb_imgs)
-    print(str(bike_imgs))
 
     imgs = [bike_imgs, mb_imgs]
 
