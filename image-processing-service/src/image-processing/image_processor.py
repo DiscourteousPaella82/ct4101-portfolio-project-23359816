@@ -19,3 +19,13 @@ def threshold_images(images, threshold=100):
             thresholded_images[i].append(thresholded_image)
 
     return thresholded_images
+
+def resize_images(images, size=(224,224)):
+    resized_images = [[],[]]
+
+    for i in range(len(images)):
+        for image in images[i]:
+            resized_image = cv.resize(image, size, dst=None, fx=None, fy=None, interpolation=cv.INTER_LINEAR)
+            resized_images[i].append(resized_image)
+
+    return resized_images

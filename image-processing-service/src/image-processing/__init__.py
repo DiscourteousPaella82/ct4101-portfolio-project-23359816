@@ -8,6 +8,7 @@ bike_img_path, mb_img_path = sh.get_image_path()
 ttl_img_count = sh.get_total_image_count()
 
 img = []
+
 print("Attempting to read bike images from path: " + bike_img_path + " & motorbikes from path: " + mb_img_path)
 imgs, read_image_count = ir.read_images(bike_pathname=bike_img_path, mb_pathname=mb_img_path, img_count=ttl_img_count)
 
@@ -20,3 +21,7 @@ iv.view_images(normalized_images, "Normalized images")
 thresholded_images = ip.threshold_images(normalized_images)
 
 iv.view_images(thresholded_images, "Thresholded images")
+
+resized_images = ip.resize_images(thresholded_images)
+
+iv.view_images(resized_images, "Resized images")
