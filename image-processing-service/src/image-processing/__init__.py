@@ -14,3 +14,9 @@ imgs, read_image_count = ir.read_images(bike_pathname=bike_img_path, mb_pathname
 print("Read " + str(read_image_count) + " total images.\nRead "+ str(len(imgs[0])) + " bike images.\nRead " + str(len(imgs[1])) + " motorbike images.")
 
 normalized_images = ip.normalize_images(imgs)
+
+iv.view_images(normalized_images, "Normalized images")
+
+thresholded_images = ip.threshold_images(normalized_images)
+
+iv.view_images(thresholded_images, "Thresholded images")
