@@ -10,7 +10,7 @@ def normalize_images(images):
 
     return normalized_images
 
-def threshold_images(images, threshold=100):
+def threshold_images(images, threshold=45):
     thresholded_images = [[],[]]
 
     for i in range(len(images)):
@@ -29,3 +29,13 @@ def resize_images(images, size=(224,224)):
             resized_images[i].append(resized_image)
 
     return resized_images
+
+def laplacian_images(images):
+    processed_images = [[], []]
+
+    for i in range(len(images)):
+        for image in images[i]:
+            processed_image = cv.Laplacian(image, cv.CV_64F)
+            processed_images[i].append(processed_image)
+
+    return processed_images
