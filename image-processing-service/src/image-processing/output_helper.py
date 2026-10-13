@@ -3,7 +3,13 @@ import json
 import warnings
 import numpy as np
 
-def write_output(output, pathname="./output", filename="data"):
+def write_output(output, filename, pathname="./output"):
+    if pathname is None:
+        pathname="./output"
+
+    if filename is None:
+        filename="data.json"
+
     if os.path.exists(pathname) != True:
         warnings.warn(pathname + " doesn't exist, creating new output directory")
         os.mkdir(pathname)

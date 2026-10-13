@@ -10,7 +10,7 @@ def normalize_images(images):
 
     return normalized_images
 
-def threshold_images(images, threshold=100):
+def threshold_images(images, threshold=45):
     thresholded_images = [[],[]]
 
     for i in range(len(images)):

@@ -1,4 +1,5 @@
 import getopt, sys
+import os
 
 args = sys.argv[1:]
 options = "vcpfo:"
@@ -42,18 +43,26 @@ imgs, read_image_count = ir.read_images(bike_pathname=bike_img_path, mb_pathname
 
 if verbose: print("Read " + str(read_image_count) + " total images.\nRead "+ str(len(imgs[0])) + " bike images.\nRead " + str(len(imgs[1])) + " motorbike images.")
 
+if verbose: print("Resizing images")
+
 resized_images = ip.resize_images(imgs)
 
 if plot: iv.view_images(resized_images, "Resized images")
+
+if verbose: print("Normalising images")
 
 normalized_images = ip.normalize_images(resized_images)
 
 if plot: iv.view_images(normalized_images, "Normalized images")
 
+if verbose: print("Thresholding images")
+
 thresholded_images = ip.threshold_images(normalized_images)
 
 if plot: iv.view_images(thresholded_images, "Thresholded images")
 
-output = thresholded_images
+if verbose: 
+    if None not in (output_dir, filename): print("Writing data to " + output_dir + "/" + filename)
+    else: print("Writing data to " + str(os.getcwd()) + "/output/data.json")
 
-oh.write_output(resized_images)
+oh.write_output(thresholded_images, filename, pathname=output_dir)
