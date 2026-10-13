@@ -3,7 +3,7 @@ import os
 
 args = sys.argv[1:]
 options = "vcpfo:"
-long_options = ["Verbose", "Plot", "Filename","Output="]
+long_options = ["Verbose", "Plot", "Filename=","Output="]
 
 verbose = False
 plot = False
