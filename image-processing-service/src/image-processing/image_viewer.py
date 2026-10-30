@@ -10,6 +10,5 @@ def view_images(images, title = ""):
             plt.imshow(images[i][j], cmap="gray",)
             plt.xticks([]), plt.yticks([])
 
-    plt.title(title)
-    
+    plt.title(title)    
     plt.show()
