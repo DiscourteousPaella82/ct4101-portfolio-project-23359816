@@ -35,4 +35,6 @@ data = dr.read_json(datapath)
 if plot:
     iv.view_images(data)
 
+flattened_data = au.flatten_dataset(data)
+
 au.inspect_dataset(data)
