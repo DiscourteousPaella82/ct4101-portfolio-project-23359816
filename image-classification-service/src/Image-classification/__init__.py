@@ -24,6 +24,7 @@ except getopt.error as err:
 import setup_helper as sh
 import data_reader as dr
 import image_viewer as iv
+import auditor as au
 
 datapath = sh.get_data_path()
 
@@ -31,4 +32,7 @@ if verbose: print("Loading data from path: " + datapath)
 
 data = dr.read_json(datapath)
 
-iv.view_images(data)
+if plot:
+    iv.view_images(data)
+
+au.inspect_dataset(data)
