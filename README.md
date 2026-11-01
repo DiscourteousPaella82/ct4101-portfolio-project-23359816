@@ -15,36 +15,65 @@ output/
 
 #### [image-classification-service](image-classification-service/README.md):
 * Python application which tests models using generated data by the image-processing-service
+* *See application README for application specific structure*
 
 #### [image-processing-service](image-processing-service/README.md):
 * Python application which generates feature data from assets
+* *See application README for application specific structure*
 
 #### output:
 * output directory for processed data.
 
 ## Project Report Documentation
 ### Data Audit
-As this project generates the engineered features at the runtime of the processing service, data auditing is primarily done during the process of generating our features.
 
-This includes:
-* Resizing images to a standard size.
-* Reducing noise in the dataset by gaussian smoothing.
-* Thresholding images to further reduce noise & get edges.
+As this project generates the engineered features at the runtime of the image processing service, data auditing is primarily done during the process of generating our features.
 
-This means that there is no explicit data auditing functionality in the image classification service as data read is expected to already be interpretable.
+This means that there is no explicit data auditing functionality in the image classification service as read data is expected to already be suitably processed in the image processing service.
 
-Note:
+#### Notes:
 * The features produced by this algorithm is primarily edges.
 * Data represents pixel values which are thresholded, as such duplicates are to be expected.
+
+### Preprocessing Pipeline
+
+As mentioned in the last section the images are converted to interpretable data in the image processing service using several steps to extract engineered features.
+
+#### Image Preprocessing Pipeline Stages
+1. Reading X number of images in where X is determined by env var `TOTAL_IMAGES_COUNT`.
+2. Resizing all the images to be 224 * 224 pixels, creating a standard 2d array size.
+3. Smoothing the images using a gaussian smoothing function to reduce noise (outliers).
+4. Uses a laplacian to get edge magnitudes.
+5. Normalizes the image values.
+6. Binary thresholds the images, resulting in pixel values of 0 or 255.
+
+This results in engineered edge features & standardised data size, & as such I decided to not have complex data audit functionality in the image-classifier-service.
+
+#### Notes
+
+* As the image sizes are standardised, the resulting dataset will always be a 3D array with size X * 244 * 244, where X is the number of images processed.
+* Image noise are outliers in our dataset. Noise is removed in the gaussian smoothing.
+
+#### Dataset Preprocessing Pipeline
+The image-classifier-service still has its own preprocessing pipeline which handles splitting and validation design.
+
+<TODO THIS>
+
+
 
 
 ## Setup & Usage
 ### Quick Start
 
+Navigate to root of project and run the following commands
 ```shell
 python -m venv .venv/   # Create virtual environment
 
 source ./venv/bin/activate
+
+pip install -r requirements.txt
+
+<TODO THIS>
 ```
 
 ### Useful Commands
