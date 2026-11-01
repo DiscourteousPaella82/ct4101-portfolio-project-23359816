@@ -1,5 +1,6 @@
 # ct4101-portfolio-project-23359816
 Machine Learning python project to classify between bicycles & motorbicycles.
+Project built with Python 3.12.3 & Ubuntu 24.04.5 (WSL)
 
 ### Table of Contents
 
