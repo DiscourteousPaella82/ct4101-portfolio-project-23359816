@@ -84,6 +84,7 @@ The image-classifier-service still has its own preprocessing pipeline which hand
 1. Dataset is read from output directory
 2. Dataset is normalized to value between 0 & 1
 3. Labels are generated using an array of zeroes & ones. This works as we know the dataset is 50/50 between bikes & motorbikes
+4. Dataset is split into training & validation sets using a 80/20 split. I decided between 80/20 as the used dataset is small, and will change the split ratio later when using more of the dataset.
 
 ## Models
 ### Baseline
