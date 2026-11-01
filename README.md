@@ -1,42 +1,62 @@
 # ct4101-portfolio-project-23359816
 Machine Learning python project to classify between bicycles & motorbicycles.
 
-## Repo Structure
+### Table of Contents
 
+- [Repo Structure](#repo-structure)
+- [Project Report Documentation](#project-report-documentation)
+  - [Data Audit](#data-audit)
+  - [Preprocessing Pipeline](#preprocessing-pipeline)
+    - [Image Preprocessing Pipeline](#image-preprocessing-pipeline-stages)
+    - [Dataset Preprocessing Pipeline](#dataset-preprocessing-pipeline)
+- [Models](#models)
+- [Setup & Usage](#setup--usage)
+
+
+## Repo Structure
 ```
 assets/
 image-classification-service/
 image-processing-service/
 output/
+.dockerignore
+.gitignore
+Dockerfile
+README.md
+requirements.txt
 ```
 
-#### assets:
-* Contains raw images of bikes & motorbikes in their respective subdirectory
+#### assets/:
+* Contains raw images of bikes & motorbikes in their respective subdirectory (images need to be added by user)
 
-#### [image-classification-service](image-classification-service/README.md):
+#### [image-classification-service/](image-classification-service/README.md):
 * Python application which tests models using generated data by the image-processing-service
 * *See application README for application specific structure*
 
-#### [image-processing-service](image-processing-service/README.md):
+#### [image-processing-service/](image-processing-service/README.md):
 * Python application which generates feature data from assets
 * *See application README for application specific structure*
 
-#### output:
+#### output/:
 * output directory for processed data.
 
 ## Project Report Documentation
 ### Data Audit
-
-As this project generates the engineered features at the runtime of the image processing service, data auditing is primarily done during the process of generating our features.
+As this project generates the engineered features at the runtime of the image processing service, programmatic data auditing is primarily done during the process of generating our features.
 
 This means that there is no explicit data auditing functionality in the image classification service as read data is expected to already be suitably processed in the image processing service.
+
+This model classifies if an image contains a bicycle or a motorbike based on the logic that all images contain one or the other, so if the image is not classified as containing a bicycle, it contains a motorbike.
+
+The target distribution of this in the dataset is normally 50/50 bike to motorbike, this is the intent for this project but this can be augmented by only supplying the pipeline so many images.
+
+The used dataset should have no outliers given the image processing pipeline explained why [here](#image-preprocessing-pipeline-stages)
 
 #### Notes:
 * The features produced by this algorithm is primarily edges.
 * Data represents pixel values which are thresholded, as such duplicates are to be expected.
 
 ### Preprocessing Pipeline
-
 As mentioned in the last section the images are converted to interpretable data in the image processing service using several steps to extract engineered features.
 
 #### Image Preprocessing Pipeline Stages
@@ -59,7 +79,7 @@ The image-classifier-service still has its own preprocessing pipeline which hand
 
 <TODO THIS>
 
-
+## Models
 
 
 ## Setup & Usage
