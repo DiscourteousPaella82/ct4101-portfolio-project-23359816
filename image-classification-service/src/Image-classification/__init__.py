@@ -25,16 +25,19 @@ import setup_helper as sh
 import data_reader as dr
 import image_viewer as iv
 import auditor as au
+import classifier as cl
 
 datapath = sh.get_data_path()
 
 if verbose: print("Loading data from path: " + datapath)
-
 data = dr.read_json(datapath)
 
 if plot:
     iv.view_images(data)
 
 flattened_data = au.flatten_dataset(data)
+labels = au.generate_labels(flattened_data)
 
-au.inspect_dataset(data)
+train, test = cl.split_dataset(flattened_data, labels)
+
+print("Yellow World")

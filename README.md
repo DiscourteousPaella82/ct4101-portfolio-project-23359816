@@ -48,6 +48,8 @@ This means that there is no explicit data auditing functionality in the image cl
 
 This model classifies if an image contains a bicycle or a motorbike based on the logic that all images contain one or the other, so if the image is not classified as containing a bicycle, it contains a motorbike.
 
+Describing functionality unused due to massive computational time
+
 The target distribution of this in the dataset is normally 50/50 bike to motorbike, this is the intent for this project but this can be augmented by only supplying the pipeline so many images.
 
 The used dataset should have no outliers given the image processing pipeline explained why [here](#image-preprocessing-pipeline-stages)
