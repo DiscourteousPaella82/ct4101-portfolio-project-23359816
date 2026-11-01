@@ -88,25 +88,59 @@ The image-classifier-service still has its own preprocessing pipeline which hand
 ## Models
 ### Baseline
 #### **Logistic Regression**
-**Metric:** Accuracy about of ~0.575. 
+**Metric:** Accuracy about of ~0.575. (Dataset size: 200)
 
 **Interpretation:** This is poor & could be a result of poor input data (garbage in/garbage out)  
 
 (In previous documentation linear regression was considered the baseline, I've decided to use logistic regression instead in order to have a more suitable classification model which can be tested against)
 
+**Example Plot**:
+
+![Logistic Regression Training Example](README/Example_baseline_train_predictions.png)
+![Logistic Regression Test Example](README/Example_baseline_test_predictions.png)
+
+
 ## Setup & Usage
 ### Quick Start
+This outline is made with shell in mind. If you are doing this in a windows environment you may have to change commands with your OS equivelent commands.
+I will have a full docker setup done by Milestone 3.
 
 Navigate to root of project and run the following commands
+
+#### Setting up venv
 ```shell
 python -m venv .venv/   # Create virtual environment
 
 source ./venv/bin/activate
 
 pip install -r requirements.txt
-
-<TODO THIS>
 ```
+
+#### Dataset
+The full dataset is found [here](https://www.kaggle.com/datasets/nqa112/vietnamese-bike-and-motorbike/data), requires kaggle login (~12k Records, ~6k each)
+
+A subset dataset can be found [here](100 Records 50 each), google drive hosting
+
+Please unzip the dataset to the assets directory, with the following structure:
+
+```
+assets/
+  bike/
+    ...
+  motorbike/
+    ...
+```
+
+Replace environment variable file with your own values & source it.
+
+#### Running applications
+```shell
+python image-processing-service/src/image-processing/__init__.py -v
+
+python image-classification-service/src/Image-classification/__init__.py -v -p
+```
+
+You can read application specific CLI arguments in their respective READMEs. Arguments in the previous are recommended to understand how the process works.
 
 ### Useful Commands
 
