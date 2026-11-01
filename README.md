@@ -69,6 +69,7 @@ As mentioned in the last section the images are converted to interpretable data 
 4. Uses a laplacian to get edge magnitudes.
 5. Normalizes the image values.
 6. Binary thresholds the images, resulting in pixel values of 0 or 255.
+7. Saves the resulting data to output directory
 
 This results in engineered edge features & standardised data size, & as such I decided to not have complex data audit functionality in the image-classifier-service.
 
@@ -80,10 +81,18 @@ This results in engineered edge features & standardised data size, & as such I d
 #### Dataset Preprocessing Pipeline
 The image-classifier-service still has its own preprocessing pipeline which handles splitting and validation design.
 
-<TODO THIS>
+1. Dataset is read from output directory
+2. Dataset is normalized to value between 0 & 1
+3. Labels are generated using an array of zeroes & ones. This works as we know the dataset is 50/50 between bikes & motorbikes
 
 ## Models
+### Baseline
+#### **Logistic Regression**
+**Metric:** Accuracy about of ~0.575. 
 
+**Interpretation:** This is poor & could be a result of poor input data (garbage in/garbage out)  
+
+(In previous documentation linear regression was considered the baseline, I've decided to use logistic regression instead in order to have a more suitable classification model which can be tested against)
 
 ## Setup & Usage
 ### Quick Start
@@ -119,3 +128,6 @@ deactivate
 ---
 ### Notes:
 * Docker currently works with the image-processing-service, full compatability will be added shortly with usage instructions
+
+### Assistance Declaration:
+* No AI or LLM written code in this codebase. Code snippets were interpreted and refactored from CT4104 lecture materials, CT4109(Image Processing & Computer Vision) lecture materials & scikit API documentation.

@@ -19,3 +19,6 @@ def inspect_dataset(dataset):
     data = df(dataset)
     df.describe(data)
     return
+
+def normalize_dataset(dataset):
+    return dataset / 255.0

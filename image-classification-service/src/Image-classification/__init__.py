@@ -37,9 +37,12 @@ if plot:
     iv.view_images(data)
 
 flattened_data = au.flatten_dataset(data)
-labels = au.generate_labels(flattened_data)
 
-train, test = cl.split_dataset(flattened_data, labels)
+normalized_data = au.normalize_dataset(flattened_data)
+
+labels = au.generate_labels(normalized_data)
+
+train, test = cl.split_dataset(normalized_data, labels)
 
 model, prob, pred = cl.fit_baseline(train[0], train[1])
 
