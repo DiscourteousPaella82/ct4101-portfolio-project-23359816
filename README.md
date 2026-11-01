@@ -1,14 +1,111 @@
 # ct4101-portfolio-project-23359816
-Repository for CT4101 Information for Machine Learning Portfolio Project
+Machine Learning python project to classify between bicycles & motorbicycles.
+Project built with Python 3.12.3 & Ubuntu 24.04.5 (WSL)
 
-# Setup & Usage
+### Table of Contents
+
+- [Repo Structure](#repo-structure)
+- [Project Report Documentation](#project-report-documentation)
+  - [Data Audit](#data-audit)
+  - [Preprocessing Pipeline](#preprocessing-pipeline)
+    - [Image Preprocessing Pipeline](#image-preprocessing-pipeline-stages)
+    - [Dataset Preprocessing Pipeline](#dataset-preprocessing-pipeline)
+- [Models](#models)
+- [Setup & Usage](#setup--usage)
+
+
+## Repo Structure
+```
+assets/
+image-classification-service/
+image-processing-service/
+output/
+.dockerignore
+.gitignore
+Dockerfile
+README.md
+requirements.txt
+```
+
+#### assets/:
+* Contains raw images of bikes & motorbikes in their respective subdirectory (images need to be added by user)
+
+#### [image-classification-service/](image-classification-service/README.md):
+* Python application which tests models using generated data by the image-processing-service
+* *See application README for application specific structure*
+
+#### [image-processing-service/](image-processing-service/README.md):
+* Python application which generates feature data from assets
+* *See application README for application specific structure*
+
+#### output/:
+* output directory for processed data.
+
+## Project Report Documentation
+### Data Audit
+As this project generates the engineered features at the runtime of the image processing service, programmatic data auditing is primarily done during the process of generating our features.
+
+This means that there is no explicit data auditing functionality in the image classification service as read data is expected to already be suitably processed in the image processing service.
+
+This model classifies if an image contains a bicycle or a motorbike based on the logic that all images contain one or the other, so if the image is not classified as containing a bicycle, it contains a motorbike.
+
+Describing functionality unused due to massive computational time
+
+The target distribution of this in the dataset is normally 50/50 bike to motorbike, this is the intent for this project but this can be augmented by only supplying the pipeline so many images.
+
+The used dataset should have no outliers given the image processing pipeline explained why [here](#image-preprocessing-pipeline-stages)
+
+#### Notes:
+* The features produced by this algorithm is primarily edges.
+* Data represents pixel values which are thresholded, as such duplicates are to be expected.
+
+### Preprocessing Pipeline
+As mentioned in the last section the images are converted to interpretable data in the image processing service using several steps to extract engineered features.
+
+#### Image Preprocessing Pipeline Stages
+1. Reading X number of images in where X is determined by env var `TOTAL_IMAGES_COUNT`.
+2. Resizing all the images to be 224 * 224 pixels, creating a standard 2d array size.
+3. Smoothing the images using a gaussian smoothing function to reduce noise (outliers).
+4. Uses a laplacian to get edge magnitudes.
+5. Normalizes the image values.
+6. Binary thresholds the images, resulting in pixel values of 0 or 255.
+7. Saves the resulting data to output directory
+
+This results in engineered edge features & standardised data size, & as such I decided to not have complex data audit functionality in the image-classifier-service.
+
+#### Notes
+
+* As the image sizes are standardised, the resulting dataset will always be a 3D array with size X * 244 * 244, where X is the number of images processed.
+* Image noise are outliers in our dataset. Noise is removed in the gaussian smoothing.
+
+#### Dataset Preprocessing Pipeline
+The image-classifier-service still has its own preprocessing pipeline which handles splitting and validation design.
+
+1. Dataset is read from output directory
+2. Dataset is normalized to value between 0 & 1
+3. Labels are generated using an array of zeroes & ones. This works as we know the dataset is 50/50 between bikes & motorbikes
+
+## Models
+### Baseline
+#### **Logistic Regression**
+**Metric:** Accuracy about of ~0.575. 
+
+**Interpretation:** This is poor & could be a result of poor input data (garbage in/garbage out)  
+
+(In previous documentation linear regression was considered the baseline, I've decided to use logistic regression instead in order to have a more suitable classification model which can be tested against)
 
 ## Setup & Usage
+### Quick Start
 
-Make sure to generate & run python virtual environment:
-
+Navigate to root of project and run the following commands
 ```shell
 python -m venv .venv/   # Create virtual environment
+
+source ./venv/bin/activate
+
+pip install -r requirements.txt
+
+<TODO THIS>
 ```
 
 ### Useful Commands
@@ -17,13 +114,20 @@ python -m venv .venv/   # Create virtual environment
 ```shell
 source ./venv/bin/activate
 ```
-
+---
 #### Install Package in Virtual Environment
 ```shell
 pip install <package-name>
 ```
-
+---
 #### Deactivate Environment
 ```shell
 deactivate
 ```
+
+---
+### Notes:
+* Docker currently works with the image-processing-service, full compatability will be added shortly with usage instructions
+
+### Assistance Declaration:
+* No AI or LLM written code in this codebase. Code snippets were interpreted and refactored from CT4104 lecture materials, CT4109(Image Processing & Computer Vision) lecture materials & scikit API documentation.
