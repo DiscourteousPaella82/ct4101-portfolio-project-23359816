@@ -120,7 +120,7 @@ pip install -r requirements.txt
 #### Dataset
 The full dataset is found [here](https://www.kaggle.com/datasets/nqa112/vietnamese-bike-and-motorbike/data), requires kaggle login (~12k Records, ~6k each)
 
-A subset dataset can be found [here](100 Records 50 each), google drive hosting
+A subset dataset can be found [here](https://drive.google.com/drive/folders/1eFPAxoE9lKAigGzh0d0yGFUVXXXuWeLo?usp=sharing)(100 Records 50 each), google drive hosting
 
 Please unzip the dataset to the assets directory, with the following structure:
 
