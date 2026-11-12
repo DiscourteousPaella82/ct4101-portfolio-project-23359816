@@ -4,7 +4,7 @@ def plot_models_predictions(names, probabilities, predictions, labels, labelname
     for i in range(len(names)):
         for j in range(2):
             if(verbose):
-                print("Plotting  predictions")
+                print(f"Plotting {names[i]} on {labelnames[j]}")
             fig, axs = plt.subplots(1, 2, figsize=(10, 5))
             fig.suptitle(f"{names[i]} on {labelnames[j]}")
 

@@ -29,6 +29,7 @@ import data_reader as dr
 import image_viewer as iv
 import auditor as au
 import classifier as cl
+import metrics as mt
 import plot_helper as ph
 
 datapath = sh.get_data_path()
@@ -52,10 +53,11 @@ for value in modelsDict.values(): names.append(value["name"])
 
 fitted_models, probabilities, predictions = cl.fit_models(modelsDict, train[0], train[1])
 
-test_probabilities, test_predictions = cl.test_models(fitted_models, test[0])
+test_probabilities, test_predictions = mt.test_models(fitted_models, test[0])
 
-if verbose:
-    cl.print_models_accuracy(fitted_models, test[0], test[1], names)
+scores = []
+
+scores = mt.evaluate_models(fitted_models, test[0], test_predictions, test[1])
 
 labelnames = ["training", "testing"]
 labelsource = [train[1], test[1]]
