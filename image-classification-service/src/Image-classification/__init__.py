@@ -47,10 +47,18 @@ labels = au.generate_labels(normalized_data)
 
 train, test = cl.split_dataset(normalized_data, labels)
 
+
 from models import modelsDict
 
-fitted_models, probabilities, predictions = cl.fit_models(modelsDict, test[0], test[1])
+names = []
+for value in modelsDict.values(): names.append(value["name"])
 
+fitted_models, probabilities, predictions = cl.fit_models(modelsDict, train[0], train[1])
+
+if verbose:
+    cl.print_models_accuracy(fitted_models, test[0], test[1], names)
+
+sys.exit(0)
 
 baseline_model, baseline_prob, baseline_pred = cl.fit_baseline(train[0], train[1])
 

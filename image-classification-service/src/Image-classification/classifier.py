@@ -16,9 +16,9 @@ def fit_models(models, data, labels):
     probabilities = []
     predictions = []
 
-    for model_func in models:
+    for mdl in models.values():
         model = make_pipeline(
-            models.get(model_func)
+            mdl["function"]
         )
         model.fit(data, labels)
         prob = model.predict_proba(data)[:, 1]
@@ -29,6 +29,13 @@ def fit_models(models, data, labels):
         predictions.append(pred)
 
     return fitted_models, probabilities, predictions
+
+
+def print_models_accuracy(models, test_data, test_labels, names):
+    for i in range(len(models)):
+        accuracy = models[i].score(test_data, test_labels)
+        print(f"{names[i]} model accuracy: {accuracy}")
+
 
 def fit_baseline(data, labels):
     model = make_pipeline(
