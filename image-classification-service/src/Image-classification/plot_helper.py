@@ -1,20 +1,20 @@
 from matplotlib import pyplot as plt
 
-def plot_model(probabilities, predictions, labels, save=False, filename='model_predictions.png'):
-    plt.figure(figsize=(10, 5))
-    plt.subplot(1, 2, 1)
-    plt.hist(probabilities, bins=100, alpha=0.7)
-    plt.title('Predictions')
-    plt.xlabel('Prob')
-    plt.ylabel('Freq')
+def plot_model(probabilities, predictions, labels, modelname, labelset, save=False, filename='model_predictions.png'):
+    fig, axs = plt.subplots(1, 2, figsize=(10, 5))
+    fig.suptitle(f"{modelname} on {labelset}")
 
-    plt.subplot(1, 2, 2)
-    plt.scatter(range(len(predictions)), predictions, c=labels, cmap='viridis', alpha=0.7)
-    plt.title('Predictions Against True Labels')
-    plt.xlabel('Sample Index')
-    plt.ylabel('Prediction')
-    plt.tight_layout()
+    axs[0].hist(probabilities, bins=100, alpha=0.7)
+    axs[0].set_title('Predictions')
+    axs[0].set_xlabel('Prob')
+    axs[0].set_ylabel('Freq')
+
+    axs[1].scatter(range(len(predictions)), predictions, c=labels, cmap='viridis', alpha=0.7)
+    axs[1].set_title('Predictions Against True Labels')
+    axs[1].set_xlabel('Sample Index')
+    axs[1].set_ylabel('Prediction')
+    fig.tight_layout()
     if save:
-            plt.savefig(filename)
+            fig.savefig(filename)
     plt.show()
-    plt.close()
+    plt.close(fig)
