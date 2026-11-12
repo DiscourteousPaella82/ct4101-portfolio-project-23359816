@@ -3,6 +3,8 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neural_network import MLPClassifier
 
+# TODO ADD HYPERPARAMATERS FOR nearest neighbours/thresholds etc
+
 modelsDict = {
     "logistic regression": {"function": LogisticRegression(C=1.0, max_iter=1000, random_state=42), "name": "Logistic Regression"},
     "knn": {"function": KNeighborsClassifier(n_neighbors=7, weights="distance", metric="minkowski"), "name": "K-Nearest Neighbour"},

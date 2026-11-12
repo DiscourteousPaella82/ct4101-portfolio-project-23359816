@@ -36,9 +36,6 @@ datapath = sh.get_data_path()
 if verbose: print("Loading data from path: " + datapath)
 data = dr.read_json(datapath)
 
-#if plot:
-#    iv.view_images(data)
-
 flattened_data = au.flatten_dataset(data)
 
 normalized_data = au.normalize_dataset(flattened_data)
@@ -55,45 +52,16 @@ for value in modelsDict.values(): names.append(value["name"])
 
 fitted_models, probabilities, predictions = cl.fit_models(modelsDict, train[0], train[1])
 
+test_probabilities, test_predictions = cl.test_models(fitted_models, test[0])
+
 if verbose:
     cl.print_models_accuracy(fitted_models, test[0], test[1], names)
 
-sys.exit(0)
+labelnames = ["training", "testing"]
+labelsource = [train[1], test[1]]
 
-baseline_model, baseline_prob, baseline_pred = cl.fit_baseline(train[0], train[1])
-
-test_prob, test_pred = cl.test_model(baseline_model, test[0])
-
-cl.print_model_accuracy(baseline_model, test[0], test[1])
-
-
-knn_model, knn_prob, knn_pred = cl.fit_kNN(train[0], train[1])
-
-test_knn_prob, test_knn_pred = cl.test_model(knn_model, test[0])
-
-cl.print_model_accuracy(knn_model, test[0], test[1], model_name="K-Nearest Neighbours")
-
-
-tree_model, tree_prob, tree_pred = cl.fit_decision_tree(train[0], train[1])
-
-test_tree_prob, test_tree_pred = cl.test_model(tree_model, test[0])
-
-cl.print_model_accuracy(tree_model, test[0], test[1], model_name="Decision Tree")
+probs = [probabilities, test_probabilities]
+preds = [predictions, test_predictions]
 
 if plot:
-    print("Plotting model predictions")
-    ph.plot_model(baseline_prob, baseline_pred, train[1], modelname="Logistic Regression", labelset="training", save=save, filename="Baseline_train_predictions.png") 
-    print("Plotting test predictions")
-    ph.plot_model(test_prob, test_pred, test[1], modelname="Logistic Regression", labelset="testing", save=save, filename="Baseline_test_predictions.png")
-
-if plot:
-    print("Plotting model predictions")
-    ph.plot_model(knn_prob, knn_pred, train[1], modelname="K-Nearest Neighbours", labelset="training", save=save, filename="KNN_train_predictions.png") 
-    print("Plotting test predictions")
-    ph.plot_model(test_knn_prob, test_knn_pred, test[1], modelname="K-Nearest Neighbours", labelset="testing", save=save, filename="KNN_test_predictions.png")
-    
-if plot:
-    print("Plotting model predictions")
-    ph.plot_model(tree_prob, tree_pred, train[1], modelname="Decision Tree", labelset="training", save=save, filename="Tree_train_predictions.png") 
-    print("Plotting test predictions")
-    ph.plot_model(test_tree_prob, test_tree_pred, test[1], modelname="Decision Tree", labelset="testing", save=save, filename="Tree_test_predictions.png")
+    ph.plot_models_predictions(names, probs, preds, labelsource, labelnames, save=save, show=False, verbose=verbose)
