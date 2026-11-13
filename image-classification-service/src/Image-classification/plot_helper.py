@@ -19,7 +19,28 @@ def plot_models_predictions(names, probabilities, predictions, labels, labelname
             axs[1].set_ylabel('Prediction')
             fig.tight_layout()
             if save:
-                fig.savefig(f"{names[i]}_{labelnames[j]}_predictions.png")
+                fig.savefig(f"output/graphs/{names[i]}_{labelnames[j]}_predictions.png")
             if show:
                 plt.show()
                 plt.close(fig)
+
+def plot_models_metrics(names, metric_results, save=False, show=False, verbose=False):
+    metric_keys = list(metric_results[0])
+    for i in range(len(metric_results)):
+        metrics = []
+        for j in range(len(metric_results[i])):
+            metrics.append(metric_results[j][metric_keys[j]])
+
+        fig, ax = plt.subplots(figsize=(10,5))
+
+        p = ax.bar(names, metrics)
+        ax.bar_label(p, label_type='center')
+            
+        ax.set_ylabel(f"{metric_keys[i]}")
+        ax.set_title(f"Models {metric_keys[i]} results")
+
+        if save:
+            plt.savefig(f"output/graphs/{metric_keys[i]}_results.png")
+        if show:
+            plt.show()
+            plt.close()

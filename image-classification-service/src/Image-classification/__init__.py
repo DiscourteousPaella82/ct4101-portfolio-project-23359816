@@ -55,9 +55,9 @@ fitted_models, probabilities, predictions = cl.fit_models(modelsDict, train[0], 
 
 test_probabilities, test_predictions = mt.test_models(fitted_models, test[0])
 
-scores = []
+evaluation_results = []
 
-scores = mt.evaluate_models(fitted_models, test[0], test_predictions, test[1])
+evaluation_results = mt.evaluate_models(fitted_models, test[0], test_predictions, test[1])
 
 labelnames = ["training", "testing"]
 labelsource = [train[1], test[1]]
@@ -67,3 +67,4 @@ preds = [predictions, test_predictions]
 
 if plot:
     ph.plot_models_predictions(names, probs, preds, labelsource, labelnames, save=save, show=False, verbose=verbose)
+    ph.plot_models_metrics(names, evaluation_results, save=save, show=False, verbose=verbose)
