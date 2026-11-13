@@ -45,7 +45,6 @@ labels = au.generate_labels(normalized_data)
 
 train, test = cl.split_dataset(normalized_data, labels)
 
-
 from models import modelsDict
 
 names = []

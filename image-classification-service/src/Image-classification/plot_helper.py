@@ -14,9 +14,10 @@ def plot_models_predictions(names, probabilities, predictions, labels, labelname
             axs[0].set_ylabel('Freq')
 
             axs[1].scatter(range(len(predictions[j][i])), predictions[j][i], c=labels[j], cmap='viridis', alpha=0.7)
-            axs[1].set_title('Predictions Against True Labels')
+            axs[1].set_title('Purple: Bike, Yellow: Motorbikes')            
             axs[1].set_xlabel('Sample Index')
             axs[1].set_ylabel('Prediction')
+
             fig.tight_layout()
             if save:
                 fig.savefig(f"output/graphs/{names[i]}_{labelnames[j]}_predictions.png")
