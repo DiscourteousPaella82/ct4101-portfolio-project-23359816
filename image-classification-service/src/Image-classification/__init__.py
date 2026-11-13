@@ -1,12 +1,13 @@
 import getopt, sys
 
 args = sys.argv[1:]
-options = "vpf:"
-long_options = ["Verbose", "Plot", "Filename"]
+options = "vpsf:"
+long_options = ["Verbose", "Plot", "Save", "Filename="]
 
 verbose = False
 plot = False
 filename = None
+save = False
 
 try:
     arguments, values = getopt.getopt(args, options, long_options)
@@ -15,6 +16,8 @@ try:
             verbose = True
         elif currentArg in ("-p", "--Plot"):
             plot = True
+        elif currentArg in ("-s", "--Save"):
+            save = True
         elif currentArg in ("-f", "--Filename"):
             filename = currentVal
 except getopt.error as err:
@@ -26,15 +29,13 @@ import data_reader as dr
 import image_viewer as iv
 import auditor as au
 import classifier as cl
+import metrics as mt
 import plot_helper as ph
 
 datapath = sh.get_data_path()
 
 if verbose: print("Loading data from path: " + datapath)
 data = dr.read_json(datapath)
-
-if plot:
-    iv.view_images(data)
 
 flattened_data = au.flatten_dataset(data)
 
@@ -44,14 +45,25 @@ labels = au.generate_labels(normalized_data)
 
 train, test = cl.split_dataset(normalized_data, labels)
 
-model, prob, pred = cl.fit_baseline(train[0], train[1])
+from models import modelsDict
 
-test_prob, test_pred = cl.test_model(model, test[0])
+names = []
+for value in modelsDict.values(): names.append(value["name"])
 
-cl.print_model_accuracy(model, test[0], test[1])
+fitted_models, probabilities, predictions = cl.fit_models(modelsDict, train[0], train[1])
+
+test_probabilities, test_predictions = mt.test_models(fitted_models, test[0])
+
+evaluation_results = []
+
+evaluation_results = mt.evaluate_models(fitted_models, test[0], test_predictions, test[1])
+
+labelnames = ["training", "testing"]
+labelsource = [train[1], test[1]]
+
+probs = [probabilities, test_probabilities]
+preds = [predictions, test_predictions]
 
 if plot:
-    print("Plotting model predictions")
-    ph.plot_model(prob, pred, train[1], save=True, filename="Baseline_train_predictions.png") 
-    print("Plotting test predictions")
-    ph.plot_model(test_prob, test_pred, test[1], save=True, filename="Baseline_test_predictions.png")
+    ph.plot_models_predictions(names, probs, preds, labelsource, labelnames, save=save, show=False, verbose=verbose)
+    ph.plot_models_metrics(names, evaluation_results, save=save, show=False, verbose=verbose)
