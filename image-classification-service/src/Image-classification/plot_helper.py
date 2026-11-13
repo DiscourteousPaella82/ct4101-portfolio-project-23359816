@@ -20,7 +20,9 @@ def plot_models_predictions(names, probabilities, predictions, labels, labelname
 
             fig.tight_layout()
             if save:
-                fig.savefig(f"output/graphs/{names[i]}_{labelnames[j]}_predictions.png")
+                filename = f"output/graphs/{names[i]}_{labelnames[j]}_predictions.png"
+                filename = filename.replace(' ', '_')
+                fig.savefig(filename)
             if show:
                 plt.show()
                 plt.close(fig)
@@ -30,7 +32,7 @@ def plot_models_metrics(names, metric_results, save=False, show=False, verbose=F
     for i in range(len(metric_results)):
         metrics = []
         for j in range(len(metric_results[i])):
-            metrics.append(metric_results[j][metric_keys[j]])
+            metrics.append(metric_results[j][metric_keys[i]])
 
         fig, ax = plt.subplots(figsize=(10,5))
 
@@ -41,7 +43,9 @@ def plot_models_metrics(names, metric_results, save=False, show=False, verbose=F
         ax.set_title(f"Models {metric_keys[i]} results")
 
         if save:
-            plt.savefig(f"output/graphs/{metric_keys[i]}_results.png")
+            filename = f"output/graphs/{metric_keys[i]}_results.png"
+            filename = filename.replace(' ', '_')
+            plt.savefig(filename)
         if show:
             plt.show()
             plt.close()

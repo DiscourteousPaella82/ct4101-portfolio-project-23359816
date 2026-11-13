@@ -86,19 +86,82 @@ The image-classifier-service still has its own preprocessing pipeline which hand
 3. Labels are generated using an array of zeroes & ones. This works as we know the dataset is 50/50 between bikes & motorbikes
 4. Dataset is split into training & validation sets using a 80/20 split. I decided between 80/20 as the used dataset is small, and will change the split ratio later when using more of the dataset.
 
-## Models
-### Baseline
-#### **Logistic Regression**
-**Metric:** Accuracy about of ~0.575. (Dataset size: 200)
+## Models 
+The following models used a training sample size of 800 & test size of 200
+#### **Logistic Regression** (Baseline)
+**Metric:** 
+| | Value |
+| --- | --- |
+| **Accuracy** | 0.835 | 
+| **Precision** | 0.839103 |
+| **Recall** | 0.835 |
+| **ROC AUC** | 0.835 |
 
-**Interpretation:** This is poor & could be a result of poor input data (garbage in/garbage out)  
+**Interpretation:** 
 
 (In previous documentation linear regression was considered the baseline, I've decided to use logistic regression instead in order to have a more suitable classification model which can be tested against)
 
-**Example Plot**:
+**Example Plots**:
 
 ![Logistic Regression Training Example](README/Example_baseline_train_predictions.png)
 ![Logistic Regression Test Example](README/Example_baseline_test_predictions.png)
+
+#### **K-Nearest Neighbours**
+**Metric:** 
+| | Value |
+| --- | --- |
+| **Accuracy** | 0.835 | 
+| **Precision** | 0.839103 |
+| **Recall** | 0.835 |
+| **ROC AUC** | 0.835 |
+
+**Interpretation:** 
+
+**Example Plots**:
+
+![K Nearest Neighbour Training Example](README/K-Nearest_Neighbour_training_predictions.png)
+![K Nearest Neighbour Testing Example](README/K-Nearest_Neighbour_testing_predictions.png)
+
+**Evaluation**
+
+#### **Decision Tree Classifier**
+**Metric:** 
+| | Value |
+| --- | --- |
+| **Accuracy** | 0.78 | 
+| **Precision** | 0.780449 |
+| **Recall** | 0.78 |
+| **ROC AUC** | 0.78 |
+
+**Interpretation:** 
+
+**Example Plots**:
+
+![Decision Tree Training Example](README/Decision_Tree_training_predictions.png)
+![Decision Tree Testing Example](README/Decision_Tree_testing_predictions.png)
+
+**Evaluation**
+
+#### **Multi-Layer Perceptron**
+**Metric:** 
+| | Value |
+| --- | --- |
+| **Accuracy** | 0.85 | 
+| **Precision** | 0.859195 |
+| **Recall** | 0.85 |
+| **ROC AUC** | 0.85 |
+
+**Interpretation:** 
+
+**Example Plots**:
+
+![Multi-Layer Perceptron Training Example](README/Multilayer_Perceptron_training_predictions.png)
+![Multi-Layer Perceptron Testing Example](README/Multilayer_Perceptron_testing_predictions.png)
+
+**Evaluation**
+
+### Comparison
+
 
 
 ## Setup & Usage
