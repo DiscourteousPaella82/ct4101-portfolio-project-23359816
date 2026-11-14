@@ -161,8 +161,35 @@ The following models used a training sample size of 800 & test size of 200
 **Evaluation**
 
 ### Comparison
+#### Result table
+
+| | Logistic Regression | K-Nearest Neighbour | Decision Tree | Multi-Layer Percceptron |
+| --- | --- | --- | --- | --- |
+| **Accuracy** | 0.835 | 0.835 | 0.78 | 0.85 |
+| **Precision** | 0.839103 | 0.839103 | 0.780449 | 0.859195 |
+| **Recall** | 0.835 | 0.835 | 0.78 | 0.85 |
+| **ROC AUC** | 0.835 | 0.835 | 0.78 | 0.85 |
+
+#### Diagrams
+
+![Accuracy Diagram](README/accuracy_results.png)
+![Precision Diagram](README/precision_results.png)
+![Recall Diagram](README/recall_results.png)
+![ROC AUC Diagram](README/roc_auc_results.png)
+
+### Error & Residual Analysis
 
 
+### Model Settings
+
+### Conclusion
+#### Best Model
+
+#### Evidence
+
+#### Limitations
+
+#### Next step
 
 ## Setup & Usage
 ### Quick Start
