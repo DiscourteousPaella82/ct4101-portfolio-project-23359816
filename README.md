@@ -230,7 +230,7 @@ Replace environment variable file with your own values & source it.
 ```shell
 python image-processing-service/src/image-processing/__init__.py -v
 
-python image-classification-service/src/Image-classification/__init__.py -v -p
+python image-classification-service/src/Image-classification/__init__.py -v -p -s
 ```
 
 You can read application specific CLI arguments in their respective READMEs. Arguments in the previous are recommended to understand how the process works.
