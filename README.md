@@ -11,6 +11,17 @@ Project built with Python 3.12.3 & Ubuntu 24.04.5 (WSL)
     - [Image Preprocessing Pipeline](#image-preprocessing-pipeline-stages)
     - [Dataset Preprocessing Pipeline](#dataset-preprocessing-pipeline)
 - [Models](#models)
+  - [Model Overview](#model-overview)
+    - [Logistic Regression](#logistic-regression-baseline)
+    - [K-Nearest Neighbours](#k-nearest-neighbours)
+    - [Decision Tree](#decision-tree-classifier)
+    - [Multi-Layer Perceptron](#multi-layer-perceptron)
+  - [Comparison](#comparison)
+    - [Result Table](#result-table)
+    - [Diagrams](#diagrams)
+- [Conclusion](#conclusion)
+  - [Best Model](#best-model)
+  - [Next Steps](#next-steps)
 - [Setup & Usage](#setup--usage)
 
 
@@ -87,6 +98,7 @@ The image-classifier-service still has its own preprocessing pipeline which hand
 4. Dataset is split into training & validation sets using a 80/20 split. I decided between 80/20 as the used dataset is small, and will change the split ratio later when using more of the dataset.
 
 ## Models 
+### Model Overview
 The following models used a training sample size of 800 & test size of 200
 #### **Logistic Regression** (Baseline)
 **Metric:** 
@@ -189,9 +201,9 @@ As MLP is a neural network machine learning model, it is heavy on computations b
 ### Next Step(s)
 
 * Implementing cross validation for model selection is an important step in the near future but I believe the following take precedent:
- * Improving the image processing pipeline to create more meaningful & concise data
- * Improved hyperparameter functionality including testing different splitting methods
- * Improved metrics with better visualisation
+  * Improving the image processing pipeline to create more meaningful & concise data
+  * Improved hyperparameter functionality including testing different splitting methods
+  * Improved metrics with better visualisation
 
 ## Setup & Usage
 ### Quick Start
