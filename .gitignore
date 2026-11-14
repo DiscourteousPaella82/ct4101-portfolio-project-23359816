@@ -11,4 +11,4 @@
 
 assets/*
 
-*.png
+output/*.png

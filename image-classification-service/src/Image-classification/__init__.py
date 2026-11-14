@@ -26,7 +26,6 @@ except getopt.error as err:
 
 import setup_helper as sh
 import data_reader as dr
-import image_viewer as iv
 import auditor as au
 import classifier as cl
 import metrics as mt
@@ -38,6 +37,7 @@ if verbose: print("Loading data from path: " + datapath)
 data = dr.read_json(datapath)
 
 flattened_data = au.flatten_dataset(data)
+if verbose: print(f"{len(flattened_data)} samples detected")
 
 normalized_data = au.normalize_dataset(flattened_data)
 
