@@ -97,8 +97,6 @@ The following models used a training sample size of 800 & test size of 200
 | **Recall** | 0.835 |
 | **ROC AUC** | 0.835 |
 
-**Interpretation:** 
-
 (In previous documentation linear regression was considered the baseline, I've decided to use logistic regression instead in order to have a more suitable classification model which can be tested against)
 
 **Example Plots**:
@@ -115,14 +113,10 @@ The following models used a training sample size of 800 & test size of 200
 | **Recall** | 0.835 |
 | **ROC AUC** | 0.835 |
 
-**Interpretation:** 
-
 **Example Plots**:
 
 ![K Nearest Neighbour Training Example](README/K-Nearest_Neighbour_training_predictions.png)
 ![K Nearest Neighbour Testing Example](README/K-Nearest_Neighbour_testing_predictions.png)
-
-**Evaluation**
 
 #### **Decision Tree Classifier**
 **Metric:** 
@@ -133,14 +127,10 @@ The following models used a training sample size of 800 & test size of 200
 | **Recall** | 0.78 |
 | **ROC AUC** | 0.78 |
 
-**Interpretation:** 
-
 **Example Plots**:
 
 ![Decision Tree Training Example](README/Decision_Tree_training_predictions.png)
 ![Decision Tree Testing Example](README/Decision_Tree_testing_predictions.png)
-
-**Evaluation**
 
 #### **Multi-Layer Perceptron**
 **Metric:** 
@@ -151,14 +141,10 @@ The following models used a training sample size of 800 & test size of 200
 | **Recall** | 0.85 |
 | **ROC AUC** | 0.85 |
 
-**Interpretation:** 
-
 **Example Plots**:
 
 ![Multi-Layer Perceptron Training Example](README/Multilayer_Perceptron_training_predictions.png)
 ![Multi-Layer Perceptron Testing Example](README/Multilayer_Perceptron_testing_predictions.png)
-
-**Evaluation**
 
 ### Comparison
 #### Result table
@@ -179,17 +165,33 @@ The following models used a training sample size of 800 & test size of 200
 
 ### Error & Residual Analysis
 
+* As previously mentioned all of these models struggle to get strong results with the dataset given. This could be due to a lot of reasons but I primarily believe that the dataset itself isn't the strongest for learning (garbage in/garbage out). This means that before even touching or tuning the models, it could be improved by scrutinising the processed images themself. Many techniques could be employed to do this including setting up hyperparameters for the image processor to attempt to tune the pipeline to produce more meaningful data by resizing, blurring & thresholding with different values.
+* The error differs model by model with a low of ~0.14 & a high of ~0.22. This is quite poor but is a good starting point as I can test large sources of error by changing values like differing the number of samples, changing the preprocessing & model hyperparameters (more about this can be read [here](#model-settings)) 
 
 ### Model Settings
 
-### Conclusion
-#### Best Model
+* Little in the way of tuning has been done with the models, the main hyperparameter tuned was the random state parameter of a value of 42 just for deterministic testing while initially developing the model.
+* Other tuning done was primarily for reducing computation time such as picking iteration counts of 500 and 1000 for MLP & Logistic regression respectively.
+* For KNN I did choose to use a n-neighbour value of 7 after tweaking with the model as it produced strong results.
 
-#### Evidence
+## Conclusion
+
+After assessing the models and their results, giving the binary classification task & the data the models had to work on I've decided that the best model is the Multi-Layer Perceptron followed closely by the baseline Logistic Regression.
+
+### Best Model
+
+I found that Multi-Layer Perceptron worked the best for this task, producing the least error at the expense of heavier computation cost than the other models ([see graphs](#diagrams))
 
 #### Limitations
 
-#### Next step
+As MLP is a neural network machine learning model, it is heavy on computations by the nature of neural networks and has greater complexity. Whilst this is a limitation in its own right I believe it is also what makes it a strong model as the neural network work very well with these kinds of image classification problems due to the great amounts of weights & biases used in training & predictions.
+
+### Next Step(s)
+
+* Implementing cross validation for model selection is an important step in the near future but I believe the following take precedent:
+ * Improving the image processing pipeline to create more meaningful & concise data
+ * Improved hyperparameter functionality including testing different splitting methods
+ * Improved metrics with better visualisation
 
 ## Setup & Usage
 ### Quick Start
