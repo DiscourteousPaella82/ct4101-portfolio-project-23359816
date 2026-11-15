@@ -23,6 +23,10 @@ Project built with Python 3.12.3 & Ubuntu 24.04.5 (WSL)
   - [Best Model](#best-model)
   - [Next Steps](#next-steps)
 - [Setup & Usage](#setup--usage)
+  - [Dataset](#dataset)
+  - [Docker](#docker)
+  - [Local Setup](#local-setup)
+  - [Assistance Declaration](#assistance-declaration)
 
 
 ## Repo Structure
@@ -208,18 +212,6 @@ As MLP is a neural network machine learning model, it is heavy on computations b
 ## Setup & Usage
 ### Quick Start
 This outline is made with shell in mind. If you are doing this in a windows environment you may have to change commands with your OS equivelent commands.
-I will have a full docker setup done by Milestone 3.
-
-Navigate to root of project and run the following commands
-
-#### Setting up venv
-```shell
-python -m venv .venv/   # Create virtual environment
-
-source ./venv/bin/activate
-
-pip install -r requirements.txt
-```
 
 #### Dataset
 The full dataset is found [here](https://www.kaggle.com/datasets/nqa112/vietnamese-bike-and-motorbike/data), requires kaggle login (~12k Records, ~6k each)
@@ -236,13 +228,33 @@ assets/
     ...
 ```
 
+#### Docker
+Docker can be used to run the applications in this project using these commands after adding images to asset directory
+
+```shell
+docker build . -t "ml-project" --build-arg TOTAL_IMAGES_COUNT={REPLACE WITH DESIRED NUMBER}
+docker run --rm -v "$PWD/output/graphs:/home/user/app/output/graphs" ml-project
+```
+
+#### Local Setup
+Navigate to root of project and run the following commands
+
+##### Setting up venv
+```shell
+python -m venv .venv/   # Create virtual environment
+
+source ./venv/bin/activate
+
+pip install -r requirements.txt
+```
+
 Replace environment variable file with your own values & source it.
 
-#### Running applications
+##### Running applications
 ```shell
 python image-processing-service/src/image-processing/__init__.py -v
 
-python image-classification-service/src/Image-classification/__init__.py -v -p -s
+python image-classification-service/src/Image-classification/__init__.py -v -p -s -d
 ```
 
 You can read application specific CLI arguments in their respective READMEs. Arguments in the previous are recommended to understand how the process works.
@@ -265,8 +277,6 @@ deactivate
 ```
 
 ---
-### Notes:
-* Docker currently works with the image-processing-service, full compatability will be added shortly with usage instructions
 
 ### Assistance Declaration:
 * No AI or LLM written code in this codebase. Code snippets were interpreted and refactored from CT4104 lecture materials, CT4109(Image Processing & Computer Vision) lecture materials & scikit API documentation.

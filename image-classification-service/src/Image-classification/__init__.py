@@ -1,12 +1,13 @@
 import getopt, sys
 
 args = sys.argv[1:]
-options = "vpsf:"
-long_options = ["Verbose", "Plot", "Save", "Filename="]
+options = "vpsdo:"
+long_options = ["Verbose", "Plot", "Save", "Display","Output="]
 
 verbose = False
 plot = False
-filename = None
+display = False
+output_dir = None
 save = False
 
 try:
@@ -18,11 +19,15 @@ try:
             plot = True
         elif currentArg in ("-s", "--Save"):
             save = True
-        elif currentArg in ("-f", "--Filename"):
-            filename = currentVal
+        elif currentArg in ("-d", "--Display"):
+            display = True
+        elif currentArg in ("-o", "--Output"):
+            output_dir = currentVal
+            print("Output directory:", currentVal)
 except getopt.error as err:
     print(str(err))
 
+if output_dir is None: output_dir="./output/graphs"
 
 import setup_helper as sh
 import data_reader as dr
@@ -65,5 +70,5 @@ probs = [probabilities, test_probabilities]
 preds = [predictions, test_predictions]
 
 if plot:
-    ph.plot_models_predictions(names, probs, preds, labelsource, labelnames, save=save, show=False, verbose=verbose)
-    ph.plot_models_metrics(names, evaluation_results, save=save, show=False, verbose=verbose)
+    ph.plot_models_predictions(names, probs, preds, labelsource, labelnames, save=save, show=display, verbose=verbose, output=output_dir)
+    ph.plot_models_metrics(names, evaluation_results, save=save, show=display, verbose=verbose, output=output_dir)

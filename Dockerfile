@@ -1,36 +1,46 @@
 # Building image processing service
-FROM python:3.14.8-slim-bookworm AS image-processor-builder
+FROM python:3.14.8-slim-bookworm AS application-builder
 
 RUN python3.14 -m venv /home/user/venv
 
-ENV PATH="/home/myuser/venv/bin:$PATH"
+ENV PATH="/home/user/venv/bin:$PATH"
 
 RUN mkdir /home/user/app
 WORKDIR /home/user/app
+RUN mkdir ./output
 
-COPY . .
-
-WORKDIR /home/user/app/image-processing-service
+ADD ./requirements.txt .
 
 RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 RUN pip3 install --no-cache-dir wheel
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-RUN mkdir /home/user/assets
-WORKDIR /home/user/assets
-COPY ./assets .
+COPY . .
 
 # Image processing
-FROM image-processor-builder AS image-processor-runner 
-
-ENV PATH="/home/myuser/venv/bin:$PATH"
+FROM application-builder AS image-processor-runner 
 
 WORKDIR /home/user/app/image-processing-service/src/image-processing
 
 ENV PYTHONUNBUFFERED=1
 ENV VIRTUAL_ENV=/home/user/venv
 
-ENV IMAGES_PATH="/home/user/assets"
-ENV TOTAL_IMAGE_COUNT=$TOTAL_IMAGE_COUNT
+ARG TOTAL_IMAGES_COUNT
+ENV IMAGES_PATH=/home/user/app/assets
+ENV TOTAL_IMAGES_COUNT=${TOTAL_IMAGES_COUNT}
 
-RUN [ "python3", "__init__.py" ]
+RUN python3 __init__.py -v -o /home/user/app/output
+
+# Image processing
+FROM image-processor-runner AS image-classifier-runner 
+
+WORKDIR /home/user/app/image-classification-service/src/Image-classification
+
+ARG DATA_PATH=/home/user/app/output/data.json
+ENV DATA_PATH=${DATA_PATH}
+
+RUN mkdir /home/user/app/output/graphs
+
+VOLUME ["/home/user/app/output/graphs"]
+
+CMD ["python3", "__init__.py", "-v", "-p", "-s", "-o", "/home/user/app/output/graphs"]

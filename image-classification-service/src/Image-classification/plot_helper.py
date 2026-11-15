@@ -1,6 +1,6 @@
 from matplotlib import pyplot as plt
 
-def plot_models_predictions(names, probabilities, predictions, labels, labelnames,save=False, show=False, verbose=False):
+def plot_models_predictions(names, probabilities, predictions, labels, labelnames,save=False, show=False, verbose=False, output="./output/graphs"):
     for i in range(len(names)):
         for j in range(2):
             if(verbose):
@@ -20,14 +20,14 @@ def plot_models_predictions(names, probabilities, predictions, labels, labelname
 
             fig.tight_layout()
             if save:
-                filename = f"output/graphs/{names[i]}_{labelnames[j]}_predictions.png"
+                filename = f"{output}/{names[i]}_{labelnames[j]}_predictions.png"
                 filename = filename.replace(' ', '_')
                 fig.savefig(filename)
             if show:
                 plt.show()
                 plt.close(fig)
 
-def plot_models_metrics(names, metric_results, save=False, show=False, verbose=False):
+def plot_models_metrics(names, metric_results, save=False, show=False, verbose=False, output="./output/graphs"):
     metric_keys = list(metric_results[0])
     for i in range(len(metric_results)):
         metrics = []
@@ -43,7 +43,7 @@ def plot_models_metrics(names, metric_results, save=False, show=False, verbose=F
         ax.set_title(f"Models {metric_keys[i]} results")
 
         if save:
-            filename = f"output/graphs/{metric_keys[i]}_results.png"
+            filename = f"{output}/{metric_keys[i]}_results.png"
             filename = filename.replace(' ', '_')
             plt.savefig(filename)
         if show:

@@ -2,9 +2,14 @@
 *.venvs
 *venv
 
+.env.example
+
 *output
 
 *.gitignore
 *.git
 
+*__pycache__
+
+*README'
 *README.md
