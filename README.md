@@ -124,10 +124,10 @@ The following models used a training sample size of 800 & test size of 200
 **Metric:** 
 | | Value |
 | --- | --- |
-| **Accuracy** | 0.835 | 
-| **Precision** | 0.839103 |
-| **Recall** | 0.835 |
-| **ROC AUC** | 0.835 |
+| **Accuracy** | 0.8 | 
+| **Precision** | 0.82967 |
+| **Recall** | 0.8 |
+| **ROC AUC** | 0.8 |
 
 **Example Plots**:
 
@@ -167,10 +167,10 @@ The following models used a training sample size of 800 & test size of 200
 
 | | Logistic Regression | K-Nearest Neighbour | Decision Tree | Multi-Layer Percceptron |
 | --- | --- | --- | --- | --- |
-| **Accuracy** | 0.835 | 0.835 | 0.78 | 0.85 |
-| **Precision** | 0.839103 | 0.839103 | 0.780449 | 0.859195 |
-| **Recall** | 0.835 | 0.835 | 0.78 | 0.85 |
-| **ROC AUC** | 0.835 | 0.835 | 0.78 | 0.85 |
+| **Accuracy** | 0.835 | 0.8 | 0.78 | 0.85 |
+| **Precision** | 0.839103 | 0.82967 | 0.780449 | 0.859195 |
+| **Recall** | 0.835 | 0.8 | 0.78 | 0.85 |
+| **ROC AUC** | 0.835 | 0.8 | 0.78 | 0.85 |
 
 #### Diagrams
 
