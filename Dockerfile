@@ -41,4 +41,6 @@ ENV DATA_PATH=${DATA_PATH}
 
 RUN mkdir /home/user/app/output/graphs
 
-RUN python3 __init__.py -v -p -s -o /home/user/app/output/graphs
+VOLUME ["/home/user/app/output/graphs"]
+
+CMD ["python3", "__init__.py", "-v", "-p", "-s", "-o", "/home/user/app/output/graphs"]
