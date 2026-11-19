@@ -243,7 +243,7 @@ Navigate to root of project and run the following commands
 ```shell
 python -m venv .venv/   # Create virtual environment
 
-source ./venv/bin/activate
+source ./.venv/bin/activate
 
 pip install -r requirements.txt
 ```
